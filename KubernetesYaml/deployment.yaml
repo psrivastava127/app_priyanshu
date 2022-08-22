@@ -18,6 +18,10 @@ spec:
       containers:
         - name: java-master-priyanshusrivastava01
           image: ps127/i-priyanshusrivastava01-master:latest
+          ports:
+            - name: http
+              containerPort: 7500
+              protocol: TCP
           envFrom:
             - configMapRef:
                 name: java-master-priyanshusrivastava01
@@ -61,7 +65,7 @@ spec:
   selector:
     app: java-master-priyanshusrivastava01
   ports:
-  - targetPort: 80
-    port: 80
-    protocol: TCP
-    nodePort: 30090
+    - protocol: TCP
+      nodePort: 30100
+      port: 7500
+      targetPort: 7500
