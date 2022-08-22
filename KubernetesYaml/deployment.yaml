@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-deploy-priyanshusrivastava01
+  namespace: kubernetes-cluster-priyanshusrivastava01
+  labels:
+    app: java-deploy-priyanshusrivastava01
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: java-deploy-priyanshusrivastava01
+  template:
+    metadata:
+      labels:
+        app: java-deploy-priyanshusrivastava01
+    spec:
+      containers:
+        - name: java-con-priyanshusrivastava01
+          image: ps127/i-priyanshusrivastava01-master:latest
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: java-config-priyanshusrivastava01
+            - secretRef:
+                name: java-secret-priyanshusrivastava01
+                
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: java-config-priyanshusrivastava01
+  namespace: kubernetes-cluster-priyanshusrivastava01
+  labels:
+    app: java-config-priyanshusrivastava01
+data:
+  API_URL: "https://www.nagarro.com/en"
+  BRANCH: "Master"
+  DOMAIN: "Java"
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: java-secret-priyanshusrivastava01
+  namespace: kubernetes-cluster-priyanshusrivastava01
+data:
+  USER_PWD: "TmFnYXJybw=="
+  USER_ID: "TmFnYXJybw=="
+type: Opaque
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-svc-priyanshusrivastava01
+  namespace: kubernetes-cluster-priyanshusrivastava01
+spec:
+  type: LoadBalancer
+  selector:
+    app: java-deploy-priyanshusrivastava01
+  ports:
+    - protocol: TCP
+      nodePort: 30012
+      port: 80
+      targetPort: 8080
