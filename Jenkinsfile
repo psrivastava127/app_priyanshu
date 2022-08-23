@@ -43,7 +43,7 @@ pipeline {
         }
         stage("Kubernetes Deployment") {
             steps {
-				script {
+				//script {
 				    //bat 'docker build -t ${dockerHubId}/i-${username}-${env.BRANCH_NAME}:latest --no-cache .'
 				    //bat 'docker tag ${dockerHubId}/i-${username}-${env.BRANCH_NAME}:v1 ${dockerHubId}/i-${username}-${env.BRANCH_NAME}:latest'
                     //withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
@@ -55,7 +55,7 @@ pipeline {
 			        //bat 'gcloud container clusters get-credentials k8s-nagp-demo --zone us-central1-c --project kubernetes-cluster-priyanshu'
 			        //bat 'kubectl apply -f KubernetesYaml/namespace.yaml'
 					//bat 'kubectl apply -f KubernetesYaml/deployment.yaml'
-                 }
+                 //}
 				echo 'kubernetes step end'
                 
             }
