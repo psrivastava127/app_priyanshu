@@ -16,7 +16,7 @@ pipeline {
         stage("Build") {
             steps {
 				git credentialsId: 'Github', url: 'https://github.com/psrivastava127/app_priyanshu.git'
-                bat 'mvn clean install'
+                //bat 'mvn clean install'
 				echo 'In build step'
             }
         }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
 					withSonarQubeEnv('Test_Sonar') {
-						bat 'mvn clean verify sonar:sonar -Dsonar.projectKey=sonar-${env.username}'
+						bat "mvn clean verify sonar:sonar -Dsonar.projectKey=sonar-${username}"
 					}
 				}
 			}
